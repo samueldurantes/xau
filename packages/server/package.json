@@ -3,11 +3,16 @@
     "dev": "ts-node-dev -r dotenv/config src/index.ts"
   },
   "dependencies": {
+    "graphql": "^16.5.0",
     "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
     "koa-graphql": "^0.12.0",
+    "koa-router": "^10.1.1",
     "mongoose": "^6.4.1"
   },
   "devDependencies": {
+    "@types/koa-bodyparser": "^4.3.7",
+    "@types/koa-router": "^7.4.4",
     "dotenv": "^16.0.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.4"
