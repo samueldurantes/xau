@@ -24,7 +24,7 @@ export const postCreate = mutationWithClientMutationId({
 
     await Promise.all([
       post.save(),
-      ctx.user.updateOne({
+      ctx.user.update({
         $addToSet: { posts: post._id }
       })
     ])
