@@ -5,19 +5,19 @@ export interface DataLoaders {
 
 const loaders: {
   [Name in keyof DataLoaders]: () => DataLoaders[Name]
-} = {} as any
+} = {} as any;
 
 const registerLoader = <Name extends keyof DataLoaders>(key: Name, getLoader: () => DataLoaders[Name]) => {
-  loaders[key] = getLoader as any
-}
+  loaders[key] = getLoader as any;
+};
 
 const getDataloaders = (): DataLoaders =>
   (Object.keys(loaders) as (keyof DataLoaders)[]).reduce(
     (prev, loaderKey) => ({
       ...prev,
-      [loaderKey]: loaders[loaderKey](),
+      [loaderKey]: loaders[loaderKey]()
     }),
-    {},
-  ) as any
+    {}
+  ) as any;
 
-export { registerLoader, getDataloaders }
+export { registerLoader, getDataloaders };

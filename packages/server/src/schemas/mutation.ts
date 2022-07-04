@@ -1,6 +1,6 @@
-import { GraphQLObjectType } from 'graphql'
+import { GraphQLObjectType } from 'graphql';
 
-import * as userMutations from '../modules/user/mutations'
+import * as userMutations from '../modules/user/mutations';
 
 export const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -8,4 +8,4 @@ export const mutation = new GraphQLObjectType({
   fields: () => ({
     ...userMutations
   })
-})
+});

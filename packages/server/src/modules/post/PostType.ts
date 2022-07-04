@@ -1,12 +1,12 @@
-import { GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInt } from 'graphql'
-import { globalIdField } from 'graphql-relay'
-import { connectionDefinitions } from '@entria/graphql-mongo-helpers'
+import { GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInt } from 'graphql';
+import { globalIdField } from 'graphql-relay';
+import { connectionDefinitions } from '@entria/graphql-mongo-helpers';
 
-import { Post } from './PostModel'
-import { load } from './PostLoader'
-import { UserType } from '../user/UserType'
-import * as UserLoader from '../user/UserLoader'
-import { nodeInterface, registerTypeLoader } from '../graphql/typeRegister'
+import { Post } from './PostModel';
+import { load } from './PostLoader';
+import { UserType } from '../user/UserType';
+import * as UserLoader from '../user/UserLoader';
+import { nodeInterface, registerTypeLoader } from '../graphql/typeRegister';
 
 export const PostType = new GraphQLObjectType<Post>({
   name: 'Post',
@@ -31,11 +31,11 @@ export const PostType = new GraphQLObjectType<Post>({
     }
   }),
   interfaces: () => [nodeInterface]
-})
+});
 
-registerTypeLoader(PostType, load)
+registerTypeLoader(PostType, load);
 
 export const PostConnection = connectionDefinitions({
   name: 'Post',
   nodeType: PostType
-})
+});
