@@ -1,7 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-import { DataLoaders } from '../loader/loaderRegister'
-import { User } from '../user/UserModel'
+import { DataLoaders } from '../loader/loaderRegister';
+import { User } from '../user/UserModel';
 
 declare type ObjectId = mongoose.Schema.Types.ObjectId
 
@@ -10,4 +10,5 @@ export type GraphQLContext = {
   dataloaders: DataLoaders
 }
 
+// eslint-disable-next-line no-unused-vars
 export type LoaderFn = (ctx: GraphQLContext, id: string | ObjectId | object) => any

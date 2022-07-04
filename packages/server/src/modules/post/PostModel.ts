@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Types } from 'mongoose'
+import mongoose, { Schema, Document, Types } from 'mongoose';
 
 export interface Post {
   title: string
@@ -31,6 +31,6 @@ const PostSchema = new Schema({
   timestamps: {
     createdAt: true
   }
-})
+});
 
-export const PostModel = mongoose.model<PostDocument>('Post', PostSchema)
+export const PostModel = mongoose.model<PostDocument>('Post', PostSchema);
