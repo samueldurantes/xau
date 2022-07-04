@@ -5,8 +5,10 @@
   "dependencies": {
     "@entria/graphql-mongo-helpers": "^1.1.2",
     "bcryptjs": "^2.4.3",
+    "dataloader": "^2.1.0",
     "graphql": "^16.5.0",
     "graphql-relay": "^0.10.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-graphql": "^0.12.0",
@@ -15,6 +17,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/koa-bodyparser": "^4.3.7",
     "@types/koa-router": "^7.4.4",
     "dotenv": "^16.0.1",

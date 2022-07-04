@@ -9,6 +9,7 @@ export interface User extends Document {
 
 export interface UserDocument extends User, Document {
   hashPassword(password: string): Promise<string>
+  authenticate(plainTextPassword: string): Promise<boolean>
 }
 
 const UserSchema = new Schema({
@@ -48,6 +49,10 @@ UserSchema.methods = {
     const hashedPassword = await bcrypt.hash(password, salt)
 
     return hashedPassword
+  },
+
+  authenticate: async function (plainTextPassword: string) {
+    return await bcrypt.compare(plainTextPassword, this.password)
   }
 }
 
