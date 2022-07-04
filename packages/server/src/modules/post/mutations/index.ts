@@ -1,1 +1,1 @@
-export * from './postCreateMutation';
+export * from './postCreateMutation'

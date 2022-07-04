@@ -1,7 +1,7 @@
-import { GraphQLObjectType } from 'graphql';
+import { GraphQLObjectType } from 'graphql'
 
-import * as userMutations from '../modules/user/mutations';
-import * as postMutations from '../modules/post/mutations';
+import * as userMutations from '../modules/user/mutations'
+import * as postMutations from '../modules/post/mutations'
 
 export const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -10,4 +10,4 @@ export const mutation = new GraphQLObjectType({
     ...userMutations,
     ...postMutations,
   }),
-});
+})

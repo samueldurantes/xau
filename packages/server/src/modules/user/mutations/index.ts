@@ -1,2 +1,2 @@
-export * from './userRegisterMutation';
-export * from './userLoginMutation';
+export * from './userRegisterMutation'
+export * from './userLoginMutation'
