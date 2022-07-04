@@ -2,37 +2,40 @@ import mongoose, { Schema, Document, Types } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 export interface User extends Document {
-  username: string
-  password: string
-  posts: Types.ObjectId[]
+  username: string;
+  password: string;
+  posts: Types.ObjectId[];
 }
 
 export interface UserDocument extends User, Document {
-  hashPassword(password: string): Promise<string>
-  authenticate(plainTextPassword: string): Promise<boolean>
+  hashPassword(password: string): Promise<string>;
+  authenticate(plainTextPassword: string): Promise<boolean>;
 }
 
-const UserSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true
+const UserSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    posts: {
+      type: [Schema.Types.ObjectId],
+      default: [],
+      ref: 'Post',
+    },
   },
-  password: {
-    type: String,
-    required: true
+  {
+    timestamps: {
+      createdAt: true,
+      updatedAt: true,
+    },
   },
-  posts: {
-    type: [Schema.Types.ObjectId],
-    default: [],
-    ref: 'Post'
-  }
-}, {
-  timestamps: {
-    createdAt: true,
-    updatedAt: true
-  }
-});
+);
 
 UserSchema.pre<UserDocument>('save', async function (next) {
   if (this.isModified('password') || this.isNew) {
@@ -53,7 +56,7 @@ UserSchema.methods = {
 
   authenticate: async function (plainTextPassword: string) {
     return await bcrypt.compare(plainTextPassword, this.password);
-  }
+  },
 };
 
 export const UserModel = mongoose.model<UserDocument>('User', UserSchema);

@@ -1,6 +1,10 @@
 import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from 'graphql';
 import { globalIdField } from 'graphql-relay';
-import { connectionDefinitions, connectionArgs, withFilter } from '@entria/graphql-mongo-helpers';
+import {
+  connectionDefinitions,
+  connectionArgs,
+  withFilter,
+} from '@entria/graphql-mongo-helpers';
 
 import { User } from './UserModel';
 import { load } from './UserLoader';
@@ -15,11 +19,11 @@ export const UserType = new GraphQLObjectType<User>({
     id: globalIdField('User'),
     username: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: (user) => user.username
+      resolve: user => user.username,
     },
     password: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: (user) => user.password
+      resolve: user => user.password,
     },
     posts: {
       type: new GraphQLNonNull(PostConnection.connectionType),
@@ -27,17 +31,17 @@ export const UserType = new GraphQLObjectType<User>({
       resolve: async (user, args, context) => {
         await PostLoader.loadAll(
           context,
-          withFilter(args, { author: user._id })
+          withFilter(args, { author: user._id }),
         );
-      }
-    }
+      },
+    },
   }),
-  interfaces: () => [nodeInterface]
+  interfaces: () => [nodeInterface],
 });
 
 registerTypeLoader(UserType, load);
 
 export const UserConnection = connectionDefinitions({
   name: 'User',
-  nodeType: UserType
+  nodeType: UserType,
 });

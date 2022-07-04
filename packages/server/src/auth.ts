@@ -10,10 +10,12 @@ export const getUser = async (token: string | null | undefined) => {
   try {
     const decodedToken = jwt.verify(token.substring(4), JWT_SECRET);
 
-    const user = await UserModel.findOne({ _id: (decodedToken as { id: string }).id });
+    const user = await UserModel.findOne({
+      _id: (decodedToken as { id: string }).id,
+    });
 
     return {
-      user
+      user,
     };
   } catch (err) {
     return { user: null };

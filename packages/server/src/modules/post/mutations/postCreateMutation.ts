@@ -9,7 +9,7 @@ export const postCreate = mutationWithClientMutationId({
   name: 'PostCreate',
   inputFields: {
     title: { type: new GraphQLNonNull(GraphQLString) },
-    body: { type: new GraphQLNonNull(GraphQLString) }
+    body: { type: new GraphQLNonNull(GraphQLString) },
   },
   mutateAndGetPayload: async ({ title, body }, ctx: GraphQLContext) => {
     if (!ctx?.user) {
@@ -19,14 +19,14 @@ export const postCreate = mutationWithClientMutationId({
     const post = new PostModel({
       title,
       body,
-      author: ctx.user
+      author: ctx.user,
     });
 
     await Promise.all([
       post.save(),
       ctx.user.update({
-        $addToSet: { posts: post._id }
-      })
+        $addToSet: { posts: post._id },
+      }),
     ]);
 
     return { post };
@@ -34,7 +34,7 @@ export const postCreate = mutationWithClientMutationId({
   outputFields: () => ({
     post: {
       type: PostType,
-      resolve: ({ post }) => post
-    }
-  })
+      resolve: ({ post }) => post,
+    },
+  }),
 });

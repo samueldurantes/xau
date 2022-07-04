@@ -9,10 +9,10 @@ const {
   getLoader,
   clearCache,
   load,
-  loadAll
+  loadAll,
 } = createLoader({
   model: PostModel,
-  loaderName: 'PostLoader'
+  loaderName: 'PostLoader',
 });
 
 export { getLoader, clearCache, load, loadAll };

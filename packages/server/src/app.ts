@@ -10,7 +10,7 @@ const router = new Router();
 
 const graphqlServer = graphqlHTTP({
   graphiql: true,
-  schema
+  schema,
 });
 
 router.all('/graphql', graphqlServer);

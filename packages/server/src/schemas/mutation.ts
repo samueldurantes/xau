@@ -8,6 +8,6 @@ export const mutation = new GraphQLObjectType({
   description: 'Root mutation',
   fields: () => ({
     ...userMutations,
-    ...postMutations
-  })
+    ...postMutations,
+  }),
 });

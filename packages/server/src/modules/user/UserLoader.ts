@@ -8,10 +8,10 @@ const {
   getLoader,
   clearCache,
   load,
-  loadAll
+  loadAll,
 } = createLoader({
   model: UserModel,
-  loaderName: 'UserLoader'
+  loaderName: 'UserLoader',
 });
 
 export { getLoader, clearCache, load, loadAll };

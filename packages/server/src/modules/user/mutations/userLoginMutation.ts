@@ -9,7 +9,7 @@ export const userLoginMutation = mutationWithClientMutationId({
   name: 'UserLogin',
   inputFields: {
     username: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
+    password: { type: new GraphQLNonNull(GraphQLString) },
   },
   mutateAndGetPayload: async ({ username, password }) => {
     const user = await UserModel.findOne({ username });
@@ -28,17 +28,17 @@ export const userLoginMutation = mutationWithClientMutationId({
 
     return {
       token,
-      user
+      user,
     };
   },
   outputFields: {
     token: {
       type: GraphQLString,
-      resolve: ({ token }) => token
+      resolve: ({ token }) => token,
     },
     me: {
       type: UserType,
-      resolve: ({ user }) => user
-    }
-  }
+      resolve: ({ user }) => user,
+    },
+  },
 });

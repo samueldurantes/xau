@@ -1,4 +1,9 @@
-import { GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInt } from 'graphql';
+import {
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+} from 'graphql';
 import { globalIdField } from 'graphql-relay';
 import { connectionDefinitions } from '@entria/graphql-mongo-helpers';
 
@@ -15,27 +20,27 @@ export const PostType = new GraphQLObjectType<Post>({
     id: globalIdField('Post'),
     title: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: (post) => post.title
+      resolve: post => post.title,
     },
     body: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: (post) => post.body
+      resolve: post => post.body,
     },
     votes: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve: (post) => post.votes
+      resolve: post => post.votes,
     },
     author: {
       type: UserType,
-      resolve: (post, _, context) => UserLoader.load(context, post.author)
-    }
+      resolve: (post, _, context) => UserLoader.load(context, post.author),
+    },
   }),
-  interfaces: () => [nodeInterface]
+  interfaces: () => [nodeInterface],
 });
 
 registerTypeLoader(PostType, load);
 
 export const PostConnection = connectionDefinitions({
   name: 'Post',
-  nodeType: PostType
+  nodeType: PostType,
 });

@@ -9,7 +9,7 @@ export const userRegisterMutation = mutationWithClientMutationId({
   name: 'UserRegister',
   inputFields: {
     username: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
+    password: { type: new GraphQLNonNull(GraphQLString) },
   },
   mutateAndGetPayload: async ({ username, ...rest }) => {
     const hasUser = (await UserModel.countDocuments({ username })) > 0;
@@ -28,17 +28,17 @@ export const userRegisterMutation = mutationWithClientMutationId({
     return {
       id: user._id,
       sucess: 'Successfully registered!',
-      token
+      token,
     };
   },
   outputFields: {
     token: {
       type: GraphQLString,
-      resolve: ({ token }) => token
+      resolve: ({ token }) => token,
     },
     me: {
       type: UserType,
-      resolve: async ({ id }) => await UserModel.findById(id)
-    }
-  }
+      resolve: async ({ id }) => await UserModel.findById(id),
+    },
+  },
 });

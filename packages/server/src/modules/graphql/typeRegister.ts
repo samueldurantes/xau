@@ -5,13 +5,13 @@ import { fromGlobalId, nodeDefinitions } from 'graphql-relay';
 import { GraphQLContext } from './types';
 
 // eslint-disable-next-line no-unused-vars
-type Load = (context: GraphQLContext, id: string) => any
+type Load = (context: GraphQLContext, id: string) => any;
 type TypeLoaders = {
   [key: string]: {
-    type: GraphQLObjectType
-    load: Load
-  }
-}
+    type: GraphQLObjectType;
+    load: Load;
+  };
+};
 
 const getTypeRegister = () => {
   const typesLoaders: TypeLoaders = {};
@@ -21,7 +21,7 @@ const getTypeRegister = () => {
   const registerTypeLoader = (type: GraphQLObjectType, load: Load) => {
     typesLoaders[type.name] = {
       type,
-      load
+      load,
     };
 
     return type;
@@ -40,7 +40,7 @@ const getTypeRegister = () => {
       const { type } = typesLoaders[obj.constructor.name] || { type: null };
 
       return type;
-    }
+    },
   );
 
   return {
@@ -48,10 +48,11 @@ const getTypeRegister = () => {
     getTypesLoaders,
     nodeField,
     nodesField,
-    nodeInterface
+    nodeInterface,
   };
 };
 
-const { registerTypeLoader, nodeInterface, nodeField, nodesField } = getTypeRegister();
+const { registerTypeLoader, nodeInterface, nodeField, nodesField } =
+  getTypeRegister();
 
 export { registerTypeLoader, nodeInterface, nodeField, nodesField };
