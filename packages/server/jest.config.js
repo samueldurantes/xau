@@ -1,4 +1,4 @@
-const package = require('./package');
+const package = require('./package')
 
 module.exports = {
   displayName: package.name,
@@ -12,5 +12,5 @@ module.exports = {
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts|tsx)?$',
   moduleFileExtensions: ['ts', 'js', 'tsx', 'json'],
-  setupFiles: ['<rootDir>/test/jest.setup.js']
-};
+  setupFiles: ['<rootDir>/test/jest.setup.js'],
+}
