@@ -4,6 +4,7 @@ import {
   connectionDefinitions,
   connectionArgs,
   withFilter,
+  timestampResolver,
 } from '@entria/graphql-mongo-helpers'
 
 import { User } from './UserModel'
@@ -35,6 +36,7 @@ export const UserType = new GraphQLObjectType<User>({
         )
       },
     },
+    ...timestampResolver,
   }),
   interfaces: () => [nodeInterface],
 })

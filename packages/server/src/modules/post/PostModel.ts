@@ -5,6 +5,8 @@ export interface Post {
   body: string
   votes: number
   author: Types.ObjectId
+  createdAt: Date
+  updatedAt: Date
 }
 
 export interface PostDocument extends Post, Document {}
@@ -32,6 +34,7 @@ const PostSchema = new Schema(
   {
     timestamps: {
       createdAt: true,
+      updatedAt: true,
     },
   },
 )

@@ -5,6 +5,8 @@ export interface User extends Document {
   username: string
   password: string
   posts: Types.ObjectId[]
+  createdAt: Date
+  updatedAt: Date
 }
 
 export interface UserDocument extends User, Document {

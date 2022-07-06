@@ -5,7 +5,10 @@ import {
   GraphQLInt,
 } from 'graphql'
 import { globalIdField } from 'graphql-relay'
-import { connectionDefinitions } from '@entria/graphql-mongo-helpers'
+import {
+  connectionDefinitions,
+  timestampResolver,
+} from '@entria/graphql-mongo-helpers'
 
 import { Post } from './PostModel'
 import { load } from './PostLoader'
@@ -34,6 +37,7 @@ export const PostType = new GraphQLObjectType<Post>({
       type: UserType,
       resolve: (post, _, context) => UserLoader.load(context, post.author._id),
     },
+    ...timestampResolver,
   }),
   interfaces: () => [nodeInterface],
 })
