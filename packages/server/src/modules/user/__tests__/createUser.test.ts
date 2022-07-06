@@ -1,7 +1,7 @@
 import { graphql } from 'graphql'
 
-import { schema } from '../../../schemas/schema'
 import { connectWithMongoose, disconnectWithMongoose } from '../../../../test'
+import { schema } from '../../../schemas/schema'
 
 beforeAll(connectWithMongoose)
 afterAll(disconnectWithMongoose)

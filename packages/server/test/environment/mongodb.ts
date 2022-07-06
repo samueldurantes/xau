@@ -1,12 +1,14 @@
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import NodeEnvironment from 'jest-environment-node'
+import { JestEnvironmentConfig, EnvironmentContext } from '@jest/environment'
 
 class MongoDbEnvironment extends NodeEnvironment {
   private mongod: MongoMemoryServer | null
 
-  // eslint-disable-next-line no-useless-constructor
-  constructor(config, context) {
+  constructor(config: JestEnvironmentConfig, context: EnvironmentContext) {
     super(config, context)
+
+    this.mongod = null
   }
 
   async setup() {

@@ -32,7 +32,7 @@ export const PostType = new GraphQLObjectType<Post>({
     },
     author: {
       type: UserType,
-      resolve: (post, _, context) => UserLoader.load(context, post.author),
+      resolve: (post, _, context) => UserLoader.load(context, post.author._id),
     },
   }),
   interfaces: () => [nodeInterface],

@@ -4,6 +4,7 @@ import { mutationWithClientMutationId } from 'graphql-relay'
 import { GraphQLContext } from 'src/modules/graphql/types'
 import { PostModel } from '../PostModel'
 import { PostType } from '../PostType'
+import { UserModel } from '../../user/UserModel'
 
 export const postCreate = mutationWithClientMutationId({
   name: 'PostCreate',
@@ -16,18 +17,20 @@ export const postCreate = mutationWithClientMutationId({
       throw new Error('You are not logged in!')
     }
 
-    const post = new PostModel({
+    const post = await new PostModel({
       title,
       body,
-      author: ctx.user,
-    })
+      author: ctx.user._id,
+    }).save()
 
-    await Promise.all([
-      post.save(),
-      ctx.user.update({
+    await UserModel.findOneAndUpdate(
+      {
+        _id: ctx.user._id,
+      },
+      {
         $addToSet: { posts: post._id },
-      }),
-    ])
+      },
+    )
 
     return { post }
   },
