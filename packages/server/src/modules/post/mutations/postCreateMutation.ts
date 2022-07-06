@@ -6,7 +6,7 @@ import { PostModel } from '../PostModel'
 import { PostType } from '../PostType'
 import { UserModel } from '../../user/UserModel'
 
-export const postCreate = mutationWithClientMutationId({
+export const postCreateMutation = mutationWithClientMutationId({
   name: 'PostCreate',
   inputFields: {
     title: { type: new GraphQLNonNull(GraphQLString) },

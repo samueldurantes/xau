@@ -18,7 +18,7 @@ it('should create a post', async () => {
 
   const mutation = `
     mutation M($title: String!, $body: String!) {
-      postCreate(input: { title: $title, body: $body }) {
+      postCreateMutation(input: { title: $title, body: $body }) {
         post {
           title
           body
@@ -44,9 +44,7 @@ it('should create a post', async () => {
 
   expect(result.errors).toBeUndefined()
 
-  const { post } = result.data?.postCreate as any
-
-  console.log(post)
+  const { post } = result.data?.postCreateMutation as any
 
   expect(post.title).toBe(variableValues.title)
   expect(post.body).toBe(variableValues.body)
@@ -55,7 +53,7 @@ it('should create a post', async () => {
 it('should give error because it is not authenticated', async () => {
   const mutation = `
     mutation M($title: String!, $body: String!) {
-      postCreate(input: { title: $title, body: $body }) {
+      postCreateMutation(input: { title: $title, body: $body }) {
         post {
           title
           body
