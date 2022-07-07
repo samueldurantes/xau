@@ -3,6 +3,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
+  GraphQLBoolean,
 } from 'graphql'
 import { globalIdField } from 'graphql-relay'
 import {
@@ -10,13 +11,14 @@ import {
   timestampResolver,
 } from '@entria/graphql-mongo-helpers'
 
-import { Post } from './PostModel'
+import { PostDocument } from './PostModel'
 import { load } from './PostLoader'
 import { UserType } from '../user/UserType'
 import * as UserLoader from '../user/UserLoader'
 import { nodeInterface, registerTypeLoader } from '../graphql/typeRegister'
+import { VoteModel } from '../vote/VoteModel'
 
-export const PostType = new GraphQLObjectType<Post>({
+export const PostType = new GraphQLObjectType<PostDocument>({
   name: 'Post',
   description: 'Post Type',
   fields: () => ({
@@ -31,7 +33,20 @@ export const PostType = new GraphQLObjectType<Post>({
     },
     votes: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve: (post) => post.votes,
+      resolve: (post) => VoteModel.countDocuments({ post: post._id }),
+    },
+    meHasVoted: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: async (post, _, context) => {
+        if (!context.user) return false
+
+        return (
+          (await VoteModel.countDocuments({
+            user: context.user._id,
+            post: post._id,
+          })) > 0
+        )
+      },
     },
     author: {
       type: UserType,

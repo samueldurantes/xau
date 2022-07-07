@@ -1,9 +1,8 @@
 import mongoose, { Schema, Document, Types } from 'mongoose'
 
-export interface Post {
+export interface Post extends Document {
   title: string
   body: string
-  votes: number
   author: Types.ObjectId
   createdAt: Date
   updatedAt: Date
@@ -20,10 +19,6 @@ const PostSchema = new Schema(
     body: {
       type: String,
       required: true,
-    },
-    votes: {
-      type: Number,
-      default: 1,
     },
     author: {
       type: Schema.Types.ObjectId,
