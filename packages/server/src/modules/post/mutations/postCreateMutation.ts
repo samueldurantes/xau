@@ -1,7 +1,7 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql'
 import { mutationWithClientMutationId } from 'graphql-relay'
 
-import { GraphQLContext } from 'src/modules/graphql/types'
+import { GraphQLContext } from '../../graphql/types'
 import { PostModel } from '../PostModel'
 import { PostType } from '../PostType'
 import { UserModel } from '../../user/UserModel'
