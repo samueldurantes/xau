@@ -1,0 +1,171 @@
+"""Root query"""
+type Query {
+  hello: String
+}
+
+"""Root mutation"""
+type Mutation {
+  userRegisterMutation(input: UserRegisterInput!): UserRegisterPayload
+  userLoginMutation(input: UserLoginInput!): UserLoginPayload
+  postCreateMutation(input: PostCreateInput!): PostCreatePayload
+  votePostMutation(input: VotePostInput!): VotePostPayload
+  removeVotePostMutation(input: RemoveVotePostInput!): RemoveVotePostPayload
+}
+
+type UserRegisterPayload {
+  token: String
+  me: User
+  clientMutationId: String
+}
+
+"""User Type"""
+type User implements Node {
+  """The ID of an object"""
+  id: ID!
+  username: String!
+  password: String!
+  posts(after: String, first: Int, before: String, last: Int): PostConnection!
+  createdAt: String
+  updatedAt: String
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""A connection to a list of items."""
+type PostConnection implements Connection {
+  """Number of items in this connection."""
+  count: Int
+
+  """
+  A count of the total number of objects in this connection, ignoring pagination.
+  This allows a client to fetch the first five objects by passing "5" as the
+  argument to "first", then fetch the total count so it could display "5 of 83",
+  for example.
+  """
+  totalCount: Int
+
+  """Offset from start."""
+  startCursorOffset: Int!
+
+  """Offset till end."""
+  endCursorOffset: Int!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PostEdge]!
+}
+
+"""A connection to a list of items."""
+interface Connection {
+  """Number of items in this connection."""
+  count: Int
+
+  """
+  A count of the total number of objects in this connection, ignoring pagination.
+  This allows a client to fetch the first five objects by passing "5" as the
+  argument to "first", then fetch the total count so it could display "5 of 83",
+  for example.
+  """
+  totalCount: Int
+
+  """Offset from start."""
+  startCursorOffset: Int!
+
+  """Offset till end."""
+  endCursorOffset: Int!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""An edge in a connection."""
+type PostEdge {
+  """The item at the end of the edge."""
+  node: Post
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+"""Post Type"""
+type Post implements Node {
+  """The ID of an object"""
+  id: ID!
+  title: String!
+  body: String!
+  votes: Int!
+  meHasVoted: Boolean!
+  author: User
+  createdAt: String
+  updatedAt: String
+}
+
+input UserRegisterInput {
+  username: String!
+  password: String!
+  clientMutationId: String
+}
+
+type UserLoginPayload {
+  token: String
+  me: User
+  clientMutationId: String
+}
+
+input UserLoginInput {
+  username: String!
+  password: String!
+  clientMutationId: String
+}
+
+type PostCreatePayload {
+  post: Post
+  clientMutationId: String
+}
+
+input PostCreateInput {
+  title: String!
+  body: String!
+  clientMutationId: String
+}
+
+type VotePostPayload {
+  post: Post
+  clientMutationId: String
+}
+
+input VotePostInput {
+  post: ID!
+  clientMutationId: String
+}
+
+type RemoveVotePostPayload {
+  post: Post
+  clientMutationId: String
+}
+
+input RemoveVotePostInput {
+  post: ID!
+  clientMutationId: String
+}

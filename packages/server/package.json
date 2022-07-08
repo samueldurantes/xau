@@ -4,7 +4,8 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r dotenv/config src/index.ts"
+    "dev": "ts-node-dev -r dotenv/config src/index.ts",
+    "schema": "ts-node scripts/generateSchema.ts"
   },
   "dependencies": {
     "@entria/graphql-mongo-helpers": "^1.1.2",
