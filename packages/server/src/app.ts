@@ -2,6 +2,7 @@ import Koa from 'koa'
 import Router from 'koa-router'
 import bodyparser from 'koa-bodyparser'
 import { graphqlHTTP } from 'koa-graphql'
+import cors from '@koa/cors'
 
 import { schema } from './schemas/schema'
 
@@ -15,6 +16,7 @@ const graphqlServer = graphqlHTTP({
 
 router.all('/graphql', graphqlServer)
 
+app.use(cors())
 app.use(bodyparser())
 app.use(router.routes()).use(router.allowedMethods())
 
