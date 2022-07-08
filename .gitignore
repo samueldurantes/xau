@@ -13,6 +13,7 @@ coverage
 .swc/
 out/
 build
+__generated__
 
 # misc
 .DS_Store
