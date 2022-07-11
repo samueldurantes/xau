@@ -8,7 +8,7 @@ export const getUser = async (token: string | null | undefined) => {
   if (!token) return { user: null }
 
   try {
-    const decodedToken = jwt.verify(token.substring(4), JWT_SECRET)
+    const decodedToken = jwt.verify(token, JWT_SECRET)
 
     const user = await UserModel.findOne({
       _id: (decodedToken as { id: string }).id,
@@ -23,5 +23,5 @@ export const getUser = async (token: string | null | undefined) => {
 }
 
 export const generateJwtToken = (user: User) => {
-  return `JWT ${jwt.sign({ id: user._id }, JWT_SECRET)}`
+  return jwt.sign({ id: user._id }, JWT_SECRET)
 }
