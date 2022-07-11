@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "prebuild": "relay-compiler relay.config.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
