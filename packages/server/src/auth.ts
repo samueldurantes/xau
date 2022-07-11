@@ -1,14 +1,13 @@
 import jwt from 'jsonwebtoken'
 
 import { User, UserModel } from './modules/user/UserModel'
-
-const JWT_SECRET = process.env.JWT_SECRET as string
+import { config } from './environment'
 
 export const getUser = async (token: string | null | undefined) => {
   if (!token) return { user: null }
 
   try {
-    const decodedToken = jwt.verify(token, JWT_SECRET)
+    const decodedToken = jwt.verify(token, config.JWT_SECRET)
 
     const user = await UserModel.findOne({
       _id: (decodedToken as { id: string }).id,
@@ -23,5 +22,5 @@ export const getUser = async (token: string | null | undefined) => {
 }
 
 export const generateJwtToken = (user: User) => {
-  return jwt.sign({ id: user._id }, JWT_SECRET)
+  return jwt.sign({ id: user._id }, config.JWT_SECRET)
 }
