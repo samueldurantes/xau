@@ -1,8 +1,9 @@
-import type { NextPage } from 'next'
+import type { NextPage, GetServerSideProps } from 'next'
 import { useContext, useState } from 'react'
 import { graphql, useMutation } from 'react-relay'
 import Link from 'next/link'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
+import { parseCookies } from 'nookies'
 
 import {
   loginMutation,
@@ -26,11 +27,8 @@ const Login: NextPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [commit] = useMutation<loginMutation>(_loginMutation)
-  const { isAuthenticated, logIn } = useContext(AuthContext)
-
-  if (isAuthenticated) {
-    Router.push('/')
-  }
+  const { logIn } = useContext(AuthContext)
+  const router = useRouter()
 
   return (
     <div className="ml-2">
@@ -39,7 +37,7 @@ const Login: NextPage = () => {
         <div>
           <p>username:</p>
           <input
-            className="border border-black rounded-sm"
+            className="border border-black rounded-sm outline-none pl-1"
             type={'text'}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -47,7 +45,7 @@ const Login: NextPage = () => {
         <div>
           <p>password:</p>
           <input
-            className="border border-black rounded-sm"
+            className="border border-black rounded-sm outline-none pl-1"
             type={'password'}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -66,7 +64,7 @@ const Login: NextPage = () => {
 
                 logIn(token)
 
-                Router.push('/')
+                router.push('/')
               },
             })
           }}
@@ -80,6 +78,23 @@ const Login: NextPage = () => {
       </Link>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { 'auth.token': token } = parseCookies(ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
 }
 
 export default Login

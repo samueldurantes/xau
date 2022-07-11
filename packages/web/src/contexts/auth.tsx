@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }: any) => {
 
     if (token) {
       const tokenVerified = verify(
-        token.substring(4),
+        token,
         process.env.NEXT_PUBLIC_JWT_SECRET as string,
       )
 

@@ -1,32 +1,17 @@
 """Root query"""
 type Query {
-  hello: String
-}
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
 
-"""Root mutation"""
-type Mutation {
-  userRegisterMutation(input: UserRegisterInput!): UserRegisterPayload
-  userLoginMutation(input: UserLoginInput!): UserLoginPayload
-  postCreateMutation(input: PostCreateInput!): PostCreatePayload
-  votePostMutation(input: VotePostInput!): VotePostPayload
-  removeVotePostMutation(input: RemoveVotePostInput!): RemoveVotePostPayload
-}
-
-type UserRegisterPayload {
-  token: String
-  me: User
-  clientMutationId: String
-}
-
-"""User Type"""
-type User implements Node {
-  """The ID of an object"""
-  id: ID!
-  username: String!
-  password: String!
+  """Fetches objects given their IDs"""
+  nodes(
+    """The IDs of objects"""
+    ids: [ID!]!
+  ): [Node]!
   posts(after: String, first: Int, before: String, last: Int): PostConnection!
-  createdAt: String
-  updatedAt: String
 }
 
 """An object with an ID"""
@@ -119,6 +104,32 @@ type Post implements Node {
   author: User
   createdAt: String
   updatedAt: String
+}
+
+"""User Type"""
+type User implements Node {
+  """The ID of an object"""
+  id: ID!
+  username: String!
+  password: String!
+  posts(after: String, first: Int, before: String, last: Int): PostConnection!
+  createdAt: String
+  updatedAt: String
+}
+
+"""Root mutation"""
+type Mutation {
+  userRegisterMutation(input: UserRegisterInput!): UserRegisterPayload
+  userLoginMutation(input: UserLoginInput!): UserLoginPayload
+  postCreateMutation(input: PostCreateInput!): PostCreatePayload
+  votePostMutation(input: VotePostInput!): VotePostPayload
+  removeVotePostMutation(input: RemoveVotePostInput!): RemoveVotePostPayload
+}
+
+type UserRegisterPayload {
+  token: String
+  me: User
+  clientMutationId: String
 }
 
 input UserRegisterInput {

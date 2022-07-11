@@ -55,6 +55,7 @@ async function networkFetch(params: RequestParameters, variables: Variables) {
       query: params.text,
       variables,
     }),
+    credentials: 'include',
   })
 
   // Get the response as JSON
