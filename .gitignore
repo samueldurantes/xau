@@ -16,7 +16,8 @@ coverage
 .swc/
 out/
 build
-__generated__
+__generated__/*
+!__generated__/.gitkeep
 
 # misc
 .DS_Store
