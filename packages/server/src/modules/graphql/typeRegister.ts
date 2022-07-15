@@ -38,7 +38,7 @@ const getTypeRegister = () => {
     (obj): any => {
       const { type } = typesLoaders[obj.constructor.name] || { type: null }
 
-      return type
+      return type.name
     },
   )
 

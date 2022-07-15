@@ -27,6 +27,7 @@ const PostSchema = new Schema(
     },
   },
   {
+    collection: 'Post',
     timestamps: {
       createdAt: true,
       updatedAt: true,
