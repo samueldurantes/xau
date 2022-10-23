@@ -8,9 +8,14 @@
   "scripts": {
     "start": "turbo run start",
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
+    "dev:web": "yarn workspace @xau/web dev",
+    "dev:server": "yarn workspace @xau/server dev",
+    "dev:all": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "copy-envs": "turbo run copy-env",
+    "relay": "yarn workspace @xau/web relay",
+    "schema": "yarn workspace @xau/server schema"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.30.5",

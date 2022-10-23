@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prebuild": "relay-compiler relay.config.js",
+    "relay": "mkdir -p __generated__ && relay-compiler relay.config.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "copy-env": "cp .env.example .env.local"
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
