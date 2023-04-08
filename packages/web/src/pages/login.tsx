@@ -1,9 +1,9 @@
 import type { NextPage, GetServerSideProps } from 'next'
 import { useContext, useState } from 'react'
 import { graphql, useMutation } from 'react-relay'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
+import Link from 'next/link'
 
 import {
   loginMutation,
@@ -74,7 +74,7 @@ const Login: NextPage = () => {
       </div>
 
       <Link href={'/register'}>
-        <a>create a account</a>
+        <a className="hover:underline">create a account</a>
       </Link>
     </div>
   )

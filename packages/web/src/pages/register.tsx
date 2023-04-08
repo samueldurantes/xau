@@ -3,6 +3,7 @@ import { useState, useContext } from 'react'
 import { graphql, useMutation } from 'react-relay'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
+import Link from 'next/link'
 
 import {
   registerMutation,
@@ -70,6 +71,10 @@ const Register: NextPage = () => {
           create account
         </button>
       </div>
+
+      <Link href={'/login'}>
+        <a className="hover:underline">already have an account? log in</a>
+      </Link>
     </div>
   )
 }
