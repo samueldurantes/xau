@@ -1,10 +1,11 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql'
-import { mutationWithClientMutationId } from 'graphql-relay'
+import { mutationWithClientMutationId, toGlobalId } from 'graphql-relay'
 
 import { GraphQLContext } from '../../graphql/types'
 import { PostModel } from '../PostModel'
-import { PostType } from '../PostType'
+import { PostConnection } from '../PostType'
 import { UserModel } from '../../user/UserModel'
+import * as PostLoader from '../PostLoader'
 
 export const postCreateMutation = mutationWithClientMutationId({
   name: 'PostCreate',
@@ -35,9 +36,20 @@ export const postCreateMutation = mutationWithClientMutationId({
     return { post }
   },
   outputFields: () => ({
-    post: {
-      type: PostType,
-      resolve: ({ post }) => post,
+    postEdge: {
+      type: PostConnection.edgeType,
+      resolve: async ({ id }, _, context) => {
+        const post = await PostLoader.load(context, id)
+
+        if (!post) {
+          return null
+        }
+
+        return {
+          cursor: toGlobalId('Post', post._id),
+          node: post,
+        }
+      },
     },
   }),
 })
