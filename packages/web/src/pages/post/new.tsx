@@ -1,41 +1,63 @@
 import type { NextPage, GetServerSideProps } from 'next'
 import { graphql, useMutation } from 'react-relay'
+import { ConnectionHandler, ROOT_ID } from 'relay-runtime'
 import { useState } from 'react'
 import { parseCookies } from 'nookies'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 
 import { newMutation } from '../../../__generated__/newMutation.graphql'
 import Header from '../../components/Header'
 
-const _postMutation = graphql`
-  mutation newMutation($title: String!, $body: String!) {
-    postCreateMutation(input: { title: $title, body: $body }) {
-      post {
-        title
-        body
-        author {
-          username
-        }
-      }
-    }
-  }
-`
-
-const NewPost: NextPage = () => {
-  const [commit] = useMutation<newMutation>(_postMutation)
+const NewPost: NextPage = ({ isAuthenticated }: any) => {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const router = useRouter()
 
+  const [commit] = useMutation<newMutation>(
+    graphql`
+      mutation newMutation($input: PostCreateInput!, $connections: [ID!]!) {
+        postCreateMutation(input: $input) {
+          postEdge @appendEdge(connections: $connections) {
+            cursor
+            node {
+              title
+              body
+              author {
+                username
+              }
+            }
+          }
+        }
+      }
+    `,
+  )
+
+  const handleSubmit = () => {
+    const connectionPosts = ConnectionHandler.getConnectionID(
+      ROOT_ID,
+      'Pages_query_posts',
+    )
+
+    const variables = {
+      input: {
+        title,
+        body,
+      },
+      connections: [connectionPosts],
+    }
+
+    commit({
+      variables,
+      onCompleted() {
+        router.push('/')
+      },
+    })
+  }
+
   return (
     <div className="h-screen flex justify-center">
       <div className="mt-3 w-full sm:w-6/12 flex-col">
-        <Header>
-          <Link href={'/'}>
-            <a className="pl-2">recipes</a>
-          </Link>
-        </Header>
+        <Header isAuthenticated={isAuthenticated} />
 
         <div className="bg-orange-50 p-2 flex flex-col">
           <div>
@@ -55,17 +77,7 @@ const NewPost: NextPage = () => {
           </div>
           <button
             className="mt-2 mb-2 border border-black rounded-sm"
-            onClick={() => {
-              commit({
-                variables: {
-                  title,
-                  body,
-                },
-                onCompleted() {
-                  router.push('/')
-                },
-              })
-            }}
+            onClick={() => handleSubmit()}
           >
             create post
           </button>
@@ -88,7 +100,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   return {
-    props: {},
+    props: {
+      isAuthenticated: true,
+    },
   }
 }
 
