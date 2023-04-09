@@ -1,12 +1,12 @@
 import { printSchema } from 'graphql/utilities'
-import { promises } from 'fs'
+import fs from 'fs/promises'
 import path from 'path'
 
 import { schema } from '../src/schemas/schema'
 
-const a = printSchema(schema)
+const generateSchema = async () => {
+  const printedSchema = printSchema(schema)
 
-;(async () => {
   const directory = path.join(
     __dirname,
     '..',
@@ -16,5 +16,7 @@ const a = printSchema(schema)
     'schema.gql',
   )
 
-  await promises.writeFile(directory, a)
-})()
+  await fs.writeFile(directory, printedSchema)
+}
+
+generateSchema()
