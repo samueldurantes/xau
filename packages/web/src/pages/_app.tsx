@@ -1,22 +1,19 @@
 import type { AppProps } from 'next/app'
-import { useMemo } from 'react'
-import { ReactRelayContext } from 'react-relay'
+import { Suspense } from 'react'
 
-import { createEnvironment } from '../relay/environment'
+import { ReactRelayContainer } from '../relay/ReactRelayContainer'
 import { AuthProvider } from '../contexts/auth'
 
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const environment = useMemo(() => createEnvironment(), [])
-
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <AuthProvider>
-      <ReactRelayContext.Provider value={{ environment }}>
-        <Component {...pageProps} />
-      </ReactRelayContext.Provider>
+      <Suspense fallback="loading">
+        <ReactRelayContainer Component={Component} props={pageProps} />
+      </Suspense>
     </AuthProvider>
   )
 }
 
-export default MyApp
+export default App
