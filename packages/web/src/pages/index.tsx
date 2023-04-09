@@ -63,26 +63,7 @@ const Landing: NextPage = ({ isAuthenticated }: any) => {
   return (
     <div className="h-screen flex justify-center">
       <div className="mt-3 w-full sm:w-6/12 flex-col">
-        <Header>
-          <div className="flex">
-            <Link href={'/'}>
-              <a className="pl-2">recipes</a>
-            </Link>
-            <p className="pl-2 pr-2 text-gray-800">|</p>
-            <Link href={'/post/new'}>
-              <a className="pr-2">new</a>
-            </Link>
-          </div>
-          {isAuthenticated ? (
-            <a className="pr-2" onClick={() => console.log(true)}>
-              logout
-            </a>
-          ) : (
-            <Link href={'/login'}>
-              <a className="pr-2">login</a>
-            </Link>
-          )}
-        </Header>
+        <Header isAuthenticated={isAuthenticated} />
 
         <div className="flex flex-col gap-0.5 bg-orange-50">
           {posts.edges.length === 0 && (
@@ -119,21 +100,17 @@ const Landing: NextPage = ({ isAuthenticated }: any) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { 'auth.token': token } = parseCookies(ctx)
-  let isAuthenticated = false
-
   if (token) {
-    isAuthenticated = true
-
     return {
       props: {
-        isAuthenticated,
+        isAuthenticated: true,
       },
     }
   }
 
   return {
     props: {
-      isAuthenticated,
+      isAuthenticated: false,
     },
   }
 }
