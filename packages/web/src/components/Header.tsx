@@ -9,7 +9,7 @@ const Header = ({ isAuthenticated }: HeaderProps) => {
     <div className="w-full flex justify-between h-7 bg-green-600">
       <div className="flex">
         <Link href={'/'}>
-          <a className="pl-2">recipes</a>
+          <a className="pl-2">xau</a>
         </Link>
         <p className="pl-2 pr-2 text-gray-800">|</p>
         <Link href={'/post/new'}>
@@ -17,9 +17,9 @@ const Header = ({ isAuthenticated }: HeaderProps) => {
         </Link>
       </div>
       {isAuthenticated ? (
-        <a className="pr-2" onClick={() => console.log(true)}>
-          logout
-        </a>
+        <Link href={'/logout'}>
+          <a className="pr-2 cursor-pointer">logout</a>
+        </Link>
       ) : (
         <Link href={'/login'}>
           <a className="pr-2">login</a>
