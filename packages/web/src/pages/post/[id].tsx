@@ -2,7 +2,6 @@ import type { NextPage, GetServerSideProps } from 'next'
 import { useLazyLoadQuery, graphql, useFragment } from 'react-relay'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
-import Link from 'next/link'
 
 import Header from '../../components/Header'
 
