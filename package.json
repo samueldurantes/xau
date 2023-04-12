@@ -8,6 +8,8 @@
   "scripts": {
     "start": "turbo run start",
     "build": "turbo run build",
+    "build:web": "yarn workspace @xau/web build",
+    "build:server": "yarn workspace @xau/server build",
     "start:web": "yarn workspace @xau/web start",
     "start:server": "yarn workspace @xau/server start",
     "dev:web": "yarn workspace @xau/web dev",
